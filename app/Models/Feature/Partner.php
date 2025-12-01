@@ -4,6 +4,7 @@ namespace App\Models\Feature;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Traits\FormatDateTimeTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Partner extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, FormatDateTimeTrait, HasFactory;
 
     protected $fillable =
     [

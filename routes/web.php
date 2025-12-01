@@ -21,6 +21,11 @@ Route::prefix('/artikel')->controller(Controllers\ArticleController::class)->gro
     Route::get('/{id}', 'show')->name('article.show');
 });
 
+Route::prefix('/mitra')->controller(Controllers\PartnerController::class)->group(function () {
+    Route::get('/', 'index')->name('partner.index');
+    Route::get('/{id}', 'show')->name('partner.show');
+});
+
 Route::prefix('/halaman')->controller(Controllers\PageController::class)->group(function () {
     Route::get('/', 'index')->name('page.index');
     Route::get('/{id}', 'show')->name('page.show');

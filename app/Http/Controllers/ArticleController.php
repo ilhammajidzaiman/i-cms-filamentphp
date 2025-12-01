@@ -19,6 +19,7 @@ class ArticleController extends Controller
             ->where('slug', $id)
             ->first();
         $data['other'] = BlogArticle::show()
+            ->inRandomOrder()
             ->limit(8)
             ->get();
         // if (!$data['record']) :

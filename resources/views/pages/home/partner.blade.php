@@ -37,7 +37,8 @@
                 @mouseleave="startAutoScroll()">
                 <div x-ref="container" class="flex space-x-4 overflow-x-hidden pb-4 hide-scrollbar">
                     @foreach ($partner as $item)
-                        <div
+                        <a wire:navigate href="{{ route('partner.show', $item->slug) }}"
+                            title="{{ $item->title ?? null }}"
                             class="flex flex-none w-96 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 p-4">
                             <div class="flex items-center space-x-4 ">
                                 <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
@@ -48,7 +49,7 @@
                                     </h1>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -82,7 +83,8 @@
                 @mouseleave="startAutoScroll()" class="overflow-hidden">
                 <div x-ref="container" class="flex space-x-4 overflow-x-hidden pb-4 hide-scrollbar">
                     @foreach ($partner as $item)
-                        <div
+                        <a wire:navigate href="{{ route('partner.show', $item->slug) }}"
+                            title="{{ $item->title ?? null }}"
                             class="flex flex-none w-96 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 p-4">
                             <div class="flex items-center space-x-4 ">
                                 <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
@@ -93,14 +95,14 @@
                                     </h1>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
         </div>
-        {{-- <x-sections.footer>
-            <x-sections.footer.description value="temukan mitra terpercaya kami yang lainnya" />
-            <x-sections.footer.link href="{{ route('index') }}" />
-        </x-sections.footer> --}}
+        <x-sections.footer>
+            <x-sections.footer.description value="lihat mitra terpercaya kami yang lain" />
+            <x-sections.footer.link href="{{ route('partner.index') }}" />
+        </x-sections.footer>
     </x-container>
 </x-wrapper>
