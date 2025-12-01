@@ -36,7 +36,7 @@
             </div>
             <x-sections.footer>
                 <x-sections.footer.description value="temukan layanan kami yang lainnya" />
-                <x-sections.footer.link href="{{ route('index') }}" />
+                <x-sections.footer.link href="{{ route('service.index') }}" />
             </x-sections.footer>
         @else
             <div class="text-center p-4">

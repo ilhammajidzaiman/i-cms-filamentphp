@@ -26,6 +26,11 @@ Route::prefix('/mitra')->controller(Controllers\PartnerController::class)->group
     Route::get('/{id}', 'show')->name('partner.show');
 });
 
+Route::prefix('/layanan')->controller(Controllers\ServiceController::class)->group(function () {
+    Route::get('/', 'index')->name('service.index');
+    Route::get('/{id}', 'show')->name('service.show');
+});
+
 Route::prefix('/halaman')->controller(Controllers\PageController::class)->group(function () {
     Route::get('/', 'index')->name('page.index');
     Route::get('/{id}', 'show')->name('page.show');
