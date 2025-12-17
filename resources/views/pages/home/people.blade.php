@@ -66,7 +66,7 @@
             </div>
             <x-sections.footer>
                 {{-- <x-sections.footer.description value="lihat tim kami yang lainnya" /> --}}
-                <x-sections.footer.link href="{{ route('index') }}" />
+                <x-sections.footer.link href="{{ route('people.index') }}" />
             </x-sections.footer>
         @else
             <div class="text-center p-4">

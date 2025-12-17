@@ -1,5 +1,5 @@
 <x-layouts.app title="{{ $record->title ?? null }}">
-    <x-wrapper id="article" class="py-4">
+    <x-wrapper id="partner" class="py-4">
         <x-container>
             <div class="w-full grid grid-cols-12 gap-8">
                 <div class="w-full col-span-full md:col-span-8 space-y-4">
@@ -7,61 +7,21 @@
                         <x-sections.breadcrumb.item href="{{ route('index') }}"
                             value="{{ Str::ucfirst(__('beranda')) }}" />
                         <x-sections.breadcrumb.icon />
-                        <x-sections.breadcrumb.item href="{{ route('article.index') }}"
-                            value="{{ Str::ucfirst(__('artikel')) }}" />
-                        <x-sections.breadcrumb.icon />
-                        <x-sections.breadcrumb.item href="{{ route('article.index') }}"
-                            value="{{ $record->category?->title ?? null }}" />
+                        <x-sections.breadcrumb.item href="{{ route('people.index') }}"
+                            value="{{ Str::ucfirst(__('tim')) }}" />
                     </x-sections.breadcrumb>
                     <h1 class="font-bold text-3xl">
-                        {{ $record->title ?? null }}
+                        {{ $record->name ?? null }}
                     </h1>
-                    <h6 class="text-slate-500">
-                        {{ $record->published_at ? $record->formatDayDate($record->published_at) : null }}.
-                        {{ Str::ucfirst(__('waktu baca')) }}
-                        {{ $record->content ? $record->readTimeFormatted($record->content) : null }}.
-                    </h6>
                     @if ($record->file)
                         <div class="aspect-video overflow-hidden bg-slate-200 rounded-xl">
                             <img src="{{ $record->file ? asset('storage/' . $record->file) : asset('/images/default-img.svg') }}"
                                 alt="image" class="w-full h-full object-contain">
                         </div>
                     @endif
-                    @if ($record->description)
-                        <h6 class="text-slate-500">
-                            {{ $record->description ?? null }}
-                        </h6>
-                    @endif
-                    @if ($record->attachment)
-                        <div class="border border-slate-300 bg-slate-200 rounded-xl">
-                            <div class="flex gap-4 overflow-x-auto mx-4 my-4 hide-scrollbar snap-x scroll-smooth">
-                                @foreach ($record->attachment as $image)
-                                    <div class="flex-none w-auto rounded-xl overflow-hidden snap-center">
-                                        <img src="{{ $image ? asset('storage/' . $image) : asset('/images/default-img.svg') }}"
-                                            alt="image"
-                                            class="w-auto h-32 hover:scale-110 transition duration-300 ease-in-out" />
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
                     <div class="content">
-                        {!! $record->content ?? null !!}
+                        {!! $record->description ?? null !!}
                     </div>
-                    @if ($record->tags)
-                        <div class="space-y-2">
-                            <p class="text-slate-500">
-                                {{ Str::ucfirst(__('topik')) }}
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                @foreach ($record->tags as $tag)
-                                    <div class="w-fit rounded-xl bg-slate-200  line-clamp-1 px-2 py-1">
-                                        {{ $tag->title ?? null }}
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
                 </div>
                 <div class="w-full col-span-full md:col-span-4 space-y-4">
                     <div class="sticky top-[30%] self-start space-y-8">
@@ -89,14 +49,14 @@
                         </div>
                         <div class="space-y-2">
                             <h1 class="text-2xl font-semibold">
-                                {{ Str::ucfirst(__('lainnya')) }}
+                                {{ Str::ucfirst(__('tim lainnya')) }}
                             </h1>
                             <div class="w-12 h-1 rounded-full bg-sky-500 "></div>
                             @foreach ($other as $item)
                                 <h3 class="line-clamp-1">
-                                    <a href="{{ route('article.show', $item->slug) }}"
-                                        title="{{ $item->title ?? null }}" class="hover:underline">
-                                        {{ $item->title ?? null }}
+                                    <a href="{{ route('people.show', $item->uuid) }}"
+                                        title="{{ $item->name ?? null }}" class="hover:underline">
+                                        {{ $item->name ?? null }}
                                     </a>
                                 </h3>
                             @endforeach

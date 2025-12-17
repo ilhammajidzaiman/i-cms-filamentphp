@@ -24,7 +24,7 @@
                                 {{ $item->title ?? null }}
                             </h1>
                             <div class="flex justify-start">
-                                <a wire:navigate href=""
+                                <a wire:navigate href="{{ $item->slug ? route('file.show', $item->slug) : null }}"
                                     class="inline-flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-xl bg-white hover:bg-sky-950 hover:text-white transition line-clamp-1">
                                     {{ Str::title(__('selengkapnya')) }}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -40,7 +40,7 @@
             </div>
             <x-sections.footer>
                 {{-- <x-sections.footer.description value="lihat file lainnya" /> --}}
-                <x-sections.footer.link href="{{ route('index') }}" />
+                <x-sections.footer.link href="{{ route('file.index') }}" />
             </x-sections.footer>
         @else
             <div class="text-center p-4">

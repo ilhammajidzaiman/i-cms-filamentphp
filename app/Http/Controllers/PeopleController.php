@@ -9,24 +9,19 @@ class PeopleController extends Controller
 {
     public function index()
     {
-        $data['record'] = People::show()
-            ->with(['peoplePosition'])
-            ->orderBy('order')
-            ->paginate(10);
-        return view('page.public.people.index', $data);
+        return view('pages.people.index');
     }
 
     public function show(string $id)
     {
         $data['record'] = People::show()
-            ->with(['peoplePosition'])
+            ->with(['position'])
             ->where('uuid', $id)
             ->first();
-        if (!$data['record']) :
-            $data['page'] = env('APP_URL') . '/';
-        else :
-            $data['page'] = env('APP_URL') . '/' . $data['record']->slug;
-        endif;
-        return view('page.public.people.show', $data);
+        $data['other'] = People::show()
+            ->inRandomOrder()
+            ->limit(7)
+            ->get();
+        return view('pages.people.show', $data);
     }
 }

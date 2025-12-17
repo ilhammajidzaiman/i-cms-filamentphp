@@ -26,7 +26,6 @@ class File extends Model
         'file_category_id',
         'slug',
         'title',
-        'downloader',
         'file',
         'attachment',
     ];
@@ -37,6 +36,7 @@ class File extends Model
 
     protected $casts = [
         'is_show' => 'boolean',
+        'attachment' => 'array',
     ];
 
     protected static function boot()

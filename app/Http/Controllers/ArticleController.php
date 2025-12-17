@@ -20,7 +20,7 @@ class ArticleController extends Controller
             ->first();
         $data['other'] = BlogArticle::show()
             ->inRandomOrder()
-            ->limit(8)
+            ->limit(7)
             ->get();
         // if (!$data['record']) :
         //     abort(404);

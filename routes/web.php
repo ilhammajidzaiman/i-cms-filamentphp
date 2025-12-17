@@ -59,7 +59,7 @@ Route::prefix('/tim')->controller(Controllers\PeopleController::class)->group(fu
 Route::prefix('/dokumen')->controller(Controllers\FileController::class)->group(function () {
     Route::get('/', 'index')->name('file.index');
     Route::get('/{id}', 'show')->name('file.show');
-    Route::get('/download/{id}', 'download')->name('file.download');
+    Route::get('/download/{file}', 'download')->name('file.download')->where('file', '.*');
     Route::get('/kategori/{id}', 'category')->name('file.category');
 });
 
