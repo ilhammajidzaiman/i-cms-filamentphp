@@ -20,7 +20,8 @@ class FileController extends Controller
             ->first();
         $data['other'] = File::show()
             ->inRandomOrder()
-            ->limit(7)
+            ->take(7)
+            ->latest()
             ->get();
         return view('pages.file.show', $data);
     }

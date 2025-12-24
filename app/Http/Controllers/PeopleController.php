@@ -15,12 +15,13 @@ class PeopleController extends Controller
     public function show(string $id)
     {
         $data['record'] = People::show()
-            ->with(['position'])
+            ->withOnly(['position'])
             ->where('uuid', $id)
             ->first();
         $data['other'] = People::show()
             ->inRandomOrder()
-            ->limit(7)
+            ->take(7)
+            ->latest()
             ->get();
         return view('pages.people.show', $data);
     }

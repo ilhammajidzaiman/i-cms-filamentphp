@@ -39,7 +39,10 @@
                                 <div
                                     class="bg-slate-500/50 backdrop-blur-xs p-4 rounded-r-xl text-white text-shadow-md">
                                     <h3 class="text-xl font-bold">
-                                        {{ $item->name ?? null }}
+                                        <a wire:navigate href="{{ route('people.show', $item->uuid) }}"
+                                            class="hover:underline">
+                                            {{ $item->name ?? null }}
+                                        </a>
                                     </h3>
                                     <p class="text-sm">
                                         {{ $item->position->title ?? null }}
@@ -65,14 +68,10 @@
                 </button>
             </div>
             <x-sections.footer>
-                {{-- <x-sections.footer.description value="lihat tim kami yang lainnya" /> --}}
                 <x-sections.footer.link href="{{ route('people.index') }}" />
             </x-sections.footer>
         @else
-            <div class="text-center p-4">
-                <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
-                <h1 class="text-xl">Data tidak ditemukan.</h1>
-            </div>
+            <x-sections.error.text />
         @endif
     </x-container>
 </x-wrapper>

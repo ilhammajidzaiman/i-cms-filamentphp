@@ -42,11 +42,7 @@
                 <x-sections.footer.link href="{{ route('article.index') }}" />
             </x-sections.footer>
         @else
-            <div class="text-center p-4">
-
-                {{-- <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto"> --}}
-                <h1 class="text-xl">Data tidak ditemukan.</h1>
-            </div>
+            <x-sections.error.text />
         @endif
     </x-container>
 </x-wrapper>

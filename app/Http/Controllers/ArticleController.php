@@ -20,17 +20,9 @@ class ArticleController extends Controller
             ->first();
         $data['other'] = BlogArticle::show()
             ->inRandomOrder()
-            ->limit(7)
+            ->take(7)
+            ->latest()
             ->get();
-        // if (!$data['record']) :
-        //     abort(404);
-        // endif;
-        // if ($data['record']) :
-        //     $data['record']->increment('visitor');
-        //     $data['share'] = env('APP_URL') . '/' . $data['record']->slug;
-        // else :
-        //     $data['share'] = env('APP_URL') . '/';
-        // endif;
         return view('pages.article.show', $data);
     }
 }
