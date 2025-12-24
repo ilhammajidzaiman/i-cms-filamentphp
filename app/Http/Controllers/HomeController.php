@@ -18,35 +18,43 @@ class HomeController extends Controller
     {
         $data['carousel'] = Carousel::show()
             ->orderByDesc('id')
-            ->limit(10)
+            ->take(10)
+            ->latest()
             ->get();
         $data['technology'] = Technology::show()
             ->orderByDesc('id')
-            ->limit(20)
+            ->take(20)
+            ->latest()
             ->get();
         $data['service'] = Service::show()
             ->orderByDesc('id')
-            ->limit(3)
+            ->take(3)
+            ->latest()
             ->get();
         $data['article'] = BlogArticle::show()
             ->orderByDesc('published_at')
-            ->limit(8)
+            ->take(8)
+            ->latest()
             ->get();
         $data['partner'] = Partner::show()
             ->orderByDesc('id')
-            ->limit(20)
+            ->take(20)
+            ->latest()
             ->get();
         $data['people'] = People::show()
             ->orderBy('order')
-            ->limit(10)
+            ->take(10)
+            ->latest()
             ->get();
         $data['file'] = File::show()
             ->orderByDesc('id')
-            ->limit(6)
+            ->take(6)
+            ->latest()
             ->get();
         $data['image'] = Image::show()
             ->orderByDesc('id')
-            ->limit(6)
+            ->take(6)
+            ->latest()
             ->get();
         return view('pages.home.index', $data);
     }
