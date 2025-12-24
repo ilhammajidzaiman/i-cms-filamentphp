@@ -18,7 +18,8 @@ class PartnerController extends Controller
             ->first();
         $data['other'] = Partner::show()
             ->inRandomOrder()
-            ->limit(7)
+            ->take(7)
+            ->latest()
             ->get();
         return view('pages.partner.show', $data);
     }

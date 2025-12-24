@@ -19,7 +19,8 @@ class ServiceController extends Controller
             ->first();
         $data['other'] = Service::show()
             ->inRandomOrder()
-            ->limit(7)
+            ->take(7)
+            ->latest()
             ->get();
         return view('pages.service.show', $data);
     }

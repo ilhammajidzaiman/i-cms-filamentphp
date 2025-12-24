@@ -4,7 +4,6 @@
             <x-sections.header.title value="layanan" />
             <x-sections.header.hr />
         </x-sections.header>
-
         @if ($service->isNotEmpty())
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
                 @foreach ($service as $item)
@@ -39,10 +38,7 @@
                 <x-sections.footer.link href="{{ route('service.index') }}" />
             </x-sections.footer>
         @else
-            <div class="text-center p-4">
-                <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
-                <h1 class="text-xl">Data tidak ditemukan.</h1>
-            </div>
+            <x-sections.error.text />
         @endif
     </x-container>
 </x-wrapper>

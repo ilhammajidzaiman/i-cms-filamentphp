@@ -1,9 +1,6 @@
 <div class="space-y-8">
     <x-sections.search />
     @if ($data->isNotEmpty())
-        {{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            @foreach ($data as $item) --}}
-        {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6"> --}}
         @foreach ($data as $item)
             <div class="flex flex-col md:flex-row items-center  bg-white overflow-hidden shadow rounded-xl">
                 <div class="aspect-video h-56 flex items-center justify-center overflow-hidden rounded-xl shrink-0 ">
@@ -31,28 +28,6 @@
                 </div>
             </div>
         @endforeach
-        {{-- </div> --}}
-        {{-- <div class="bg-white rounded-xl overflow-hidden shadow">
-                    <div class="relative aspect-video overflow-hidden">
-                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
-                            alt="image"
-                            class="bg-slate-200 w-full h-full object-cover transition-all duration-300 ease-in-out hover:scale-110">
-                    </div>
-                    <div class="space-y-2 p-4">
-                        <h1 class="text-xl font-bold line-clamp-3">
-                            <a wire:navigate href="{{ $item->slug ? route('article.show', $item->slug) : null }}"
-                                class="hover:underline">
-                                {{ $item->title ?? null }}
-                            </a>
-                        </h1>
-                        <h3 class="line-clamp-6">
-                            {{ $item->description ?? null }}
-                        </h3>
-                    </div>
-                </div>
-                @endforeach
-                --}}
-        {{-- </div> --}}
         @if ($more)
             <x-sections.more />
         @endif
