@@ -9,7 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('metaTag')
     <title>
-        {{ $siteSetting->name ? $title . ' | ' . $siteSetting->name : env('APP_NAME') }}
+        {{ $title . ' | ' . env('APP_NAME') ?? null }}
+        {{-- {{ $siteSetting->name ? $title . ' | ' . $siteSetting->name : env('APP_NAME') }} --}}
     </title>
     <link rel="shortcut icon"
         href="{{ $siteSetting->favicon ? asset('storage/' . $siteSetting->favicon) : asset('/images/laravel.svg') }}"

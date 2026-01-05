@@ -9,7 +9,7 @@ class PageFile extends Component
 {
     public $search = '';
     public $page = 1;
-    public $perPage = 8;
+    public $perPage = 6;
     public $lastPage = 1;
     public $more = false;
     public $data;

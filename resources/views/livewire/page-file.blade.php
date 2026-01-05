@@ -5,7 +5,7 @@
             @foreach ($data as $item)
                 <div class="flex items-center  bg-white overflow-hidden shadow rounded-xl hover:shadow-md">
                     <div
-                        class="aspect-3/4 w-32 flex items-center justify-center overflow-hidden rounded-xl shrink-0 bg-slate-200">
+                        class="aspect-3/4 w-36 flex items-center justify-center overflow-hidden rounded-xl shrink-0 bg-slate-200">
                         <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
                             alt="image"
                             class="bg-slate-200 w-full h-full object-cover transition-all duration-300 ease-in-out hover:scale-110">

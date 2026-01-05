@@ -9,7 +9,7 @@ class PagePeople extends Component
 {
     public $search = '';
     public $page = 1;
-    public $perPage = 6;
+    public $perPage = 8;
     public $lastPage = 1;
     public $more = false;
     public $data;

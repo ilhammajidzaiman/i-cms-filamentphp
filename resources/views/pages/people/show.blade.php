@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ $record->title ?? null }}">
+<x-layouts.app title="{{ $record->name ?? null }}">
     <x-wrapper id="people" class="py-4">
         <x-container>
             @if ($record)
