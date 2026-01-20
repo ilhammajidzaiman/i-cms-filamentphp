@@ -51,12 +51,8 @@ class PartnerForm
                             ->directory('partner-file/' . date('Y/m'))
                             ->image()
                             ->imageEditor()
-                            // ->imageAspectRatio('16:9')
-                            // ->automaticallyCropImagesToAspectRatio('16:9')
-                            // ->automaticallyResizeImagesMode('cover')
+                            ->automaticallyResizeImagesMode('contain')
                             ->automaticallyResizeImagesToWidth('960')
-                            // ->automaticallyResizeImagesToHeight('720')
-                            // ->automaticallyOpenImageEditorForAspectRatio()
                             ->openable()
                             ->downloadable()
                             ->maxSize(10240),
