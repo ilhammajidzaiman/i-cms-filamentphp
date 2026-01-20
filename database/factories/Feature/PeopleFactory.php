@@ -18,7 +18,7 @@ class PeopleFactory extends Factory
             'order' => PeoplePosition::inRandomOrder()->value('id'),
             'name' => Str::title($this->faker->sentence(2)),
             'description' => $this->faker->sentence(20),
-            'file' => "/seeder/images/image_{$imageNumber}.jpg",
+            'file' => "seeder/picsum/image_{$imageNumber}.jpg",
         ];
     }
 }

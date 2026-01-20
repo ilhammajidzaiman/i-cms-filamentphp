@@ -16,7 +16,7 @@ class ServiceFactory extends Factory
             'slug' => trim(Str::slug($this->faker->sentence(2))),
             'title' => trim(Str::title($this->faker->sentence(2))),
             'description' => trim($this->faker->paragraphs(10, true)),
-            'file' => "/seeder/images/image_{$imageNumber}.jpg",
+            'file' => "seeder/picsum/image_{$imageNumber}.jpg",
         ];
     }
 }

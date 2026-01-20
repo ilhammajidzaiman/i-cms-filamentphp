@@ -15,7 +15,7 @@ class FileFactory extends Factory
         $randomImages = collect(range(1, 200))
             ->shuffle()
             ->take(6)
-            ->map(fn($num) => "/seeder/images/image_{$num}.jpg")
+            ->map(fn($num) => "seeder/picsum/image_{$num}.jpg")
             ->values()
             ->toArray();
         return [
@@ -23,7 +23,7 @@ class FileFactory extends Factory
             'file_category_id' => FileCategory::inRandomOrder()->first()->id,
             'slug' => Str::slug($this->faker->sentence(15)),
             'title' => $this->faker->sentence(15),
-            'file' => "/seeder/images/image_{$imageNumber}.jpg",
+            'file' => "seeder/picsum/image_{$imageNumber}.jpg",
             'attachment' => $randomImages,
             'created_at' => $this->faker->dateTimeBetween('-6 months', 'now'),
         ];

@@ -14,75 +14,75 @@ class TechnologySeeder extends Seeder
         $data = [
             [
                 'title' => 'bootstrap',
-                'file' => '/seeder/techicons/bootstrap.svg',
+                'file' => 'seeder/techicons/bootstrap.svg',
             ],
             [
                 'title' => 'codeigniter',
-                'file' => '/seeder/techicons/codeigniter.svg',
+                'file' => 'seeder/techicons/codeigniter.svg',
             ],
             [
                 'title' => 'css3',
-                'file' => '/seeder/techicons/css3.svg',
+                'file' => 'seeder/techicons/css3.svg',
             ],
             [
                 'title' => 'gimp',
-                'file' => '/seeder/techicons/gimp.svg',
+                'file' => 'seeder/techicons/gimp.svg',
             ],
             [
                 'title' => 'git',
-                'file' => '/seeder/techicons/git.svg',
+                'file' => 'seeder/techicons/git.svg',
             ],
             [
                 'title' => 'github',
-                'file' => '/seeder/techicons/github.svg',
+                'file' => 'seeder/techicons/github.svg',
             ],
             [
                 'title' => 'html5',
-                'file' => '/seeder/techicons/html5.svg',
+                'file' => 'seeder/techicons/html5.svg',
             ],
             [
                 'title' => 'inkscape',
-                'file' => '/seeder/techicons/inkscape.svg',
+                'file' => 'seeder/techicons/inkscape.svg',
             ],
             [
                 'title' => 'javascript',
-                'file' => '/seeder/techicons/javascript.svg',
+                'file' => 'seeder/techicons/javascript.svg',
             ],
             [
                 'title' => 'laravel',
-                'file' => '/seeder/techicons/laravel.svg',
+                'file' => 'seeder/techicons/laravel.svg',
             ],
             [
                 'title' => 'linux',
-                'file' => '/seeder/techicons/linux.svg',
+                'file' => 'seeder/techicons/linux.svg',
             ],
             [
                 'title' => 'livewire',
-                'file' => '/seeder/techicons/livewire.svg',
+                'file' => 'seeder/techicons/livewire.svg',
             ],
             [
                 'title' => 'mysql',
-                'file' => '/seeder/techicons/mysql.svg',
+                'file' => 'seeder/techicons/mysql.svg',
             ],
             [
                 'title' => 'php',
-                'file' => '/seeder/techicons/php.svg',
+                'file' => 'seeder/techicons/php.svg',
             ],
             [
                 'title' => 'postgressql',
-                'file' => '/seeder/techicons/postgressql.svg',
+                'file' => 'seeder/techicons/postgressql.svg',
             ],
             [
                 'title' => 'tailwindcss',
-                'file' => '/seeder/techicons/tailwindcss.svg',
+                'file' => 'seeder/techicons/tailwindcss.svg',
             ],
             [
                 'title' => 'ubuntu',
-                'file' => '/seeder/techicons/ubuntu.svg',
+                'file' => 'seeder/techicons/ubuntu.svg',
             ],
             [
                 'title' => 'vue',
-                'file' => '/seeder/techicons/vue.svg',
+                'file' => 'seeder/techicons/vue.svg',
             ],
         ];
         foreach ($data as $item) :
