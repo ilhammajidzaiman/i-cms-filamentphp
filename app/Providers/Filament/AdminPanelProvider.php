@@ -75,6 +75,7 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()->label("Administrasi")->collapsible(),
             ])
             ->resourceCreatePageRedirect('index')
-            ->resourceEditPageRedirect('index');
+            // ->resourceEditPageRedirect('index')
+        ;
     }
 }
