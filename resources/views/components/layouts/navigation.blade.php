@@ -75,7 +75,7 @@
                                     </el-popover>
                                 </div>
                             @else
-                                <a wire:navigate href="{ $urlParent ?? null }}"
+                                <a wire:navigate href="{{ $urlParent ?? null }}"
                                     class="relative rounded-xl transition duration-200 ease-in-out hover:text-sky-700 group">
                                     {{ $parent->title ?? null }}
                                     <span
