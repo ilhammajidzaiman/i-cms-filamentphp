@@ -5,9 +5,9 @@ Ini adalah aplikasi `Content Management System` untuk mengelolaan halaman websit
 ### Teknologi
 
 - Php 8.x
-- Laravel 12.x
-    - Livewire 3.x
-- Filamentphp 4.x
+- Laravel 13.x
+    - Livewire 4.x
+- Filamentphp 5.x
     - Filament Tree
 
 ### Instalasi
