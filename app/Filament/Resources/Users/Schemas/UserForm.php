@@ -3,15 +3,18 @@
 namespace App\Filament\Resources\Users\Schemas;
 
 use App\Enums\GenderEnum;
-use Illuminate\Support\Str;
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Section;
+use App\Enums\RoleEnum;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class UserForm
 {
@@ -27,11 +30,6 @@ class UserForm
                         TextInput::make('name')
                             ->label(Str::title(__('nama')))
                             ->required()
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, ?string $state) {
-                                $set('username', $state);
-                                $set('email', Str::lower(Str::replace(' ', '', $state)) . '@gmail.com');
-                            })
                             ->maxLength(255),
                         TextInput::make('username')
                             ->label(Str::title(__('username')))
@@ -60,36 +58,36 @@ class UserForm
                             ->required(fn(string $operation): bool => $operation === 'create')
                             ->visible(fn(Get $get): bool => filled($get('password')))
                             ->maxLength(255),
-                        // Select::make('roles')
-                        //     ->label(Str::title(__('level')))
-                        //     ->required()
-                        //     ->native(false)
-                        //     ->preload()
-                        //     ->relationship(
-                        //         name: 'roles',
-                        //         titleAttribute: 'name',
-                        //         modifyQueryUsing: static function (Builder $query) {
-                        //             return $query
-                        //                 ->when(
-                        //                     auth()->user()->hasAnyRole(RoleEnum::SuperAdmin),
-                        //                     function ($query) {
-                        //                         return $query;
-                        //                     }
-                        //                 )
-                        //                 ->when(
-                        //                     auth()->user()->hasAnyRole(RoleEnum::Admin),
-                        //                     function ($query) {
-                        //                         return $query->where('name', RoleEnum::User);
-                        //                     }
-                        //                 )
-                        //                 ->when(
-                        //                     auth()->user()->hasAnyRole(RoleEnum::User),
-                        //                     function ($query) {
-                        //                         return $query->where('name', RoleEnum::User);
-                        //                     }
-                        //                 );
-                        //         },
-                        //     ),
+                        Select::make('roles')
+                            ->label(Str::title(__('level')))
+                            ->required()
+                            ->native(false)
+                            ->preload()
+                            ->relationship(
+                                name: 'roles',
+                                titleAttribute: 'name',
+                                modifyQueryUsing: static function (Builder $query) {
+                                    return $query
+                                        ->when(
+                                            auth()->user()->hasAnyRole(RoleEnum::SuperAdmin),
+                                            function ($query) {
+                                                return $query;
+                                            }
+                                        )
+                                        ->when(
+                                            auth()->user()->hasAnyRole(RoleEnum::Admin),
+                                            function ($query) {
+                                                return $query->where('name', RoleEnum::User);
+                                            }
+                                        )
+                                        ->when(
+                                            auth()->user()->hasAnyRole(RoleEnum::User),
+                                            function ($query) {
+                                                return $query->where('name', RoleEnum::User);
+                                            }
+                                        );
+                                },
+                            ),
                     ]),
                 Section::make(Str::title(__('profil')))
                     ->relationship('profile')
