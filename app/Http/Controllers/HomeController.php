@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $data['carousel'] = Carousel::show()
             ->orderByDesc('id')
-            ->take(10)
+            ->take(5)
             ->latest()
             ->get();
         $data['technology'] = Technology::show()
@@ -33,7 +33,7 @@ class HomeController extends Controller
             ->get();
         $data['article'] = BlogArticle::show()
             ->orderByDesc('published_at')
-            ->take(8)
+            ->take(6)
             ->latest()
             ->get();
         $data['partner'] = Partner::show()

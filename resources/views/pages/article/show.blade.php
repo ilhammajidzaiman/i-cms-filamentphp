@@ -1,4 +1,119 @@
 <x-layouts.app title="{{ $record->title ?? null }}">
+    <section class="w-full border-b border-slate-200">
+        <div class ="md:max-w-7xl mx-auto md:px-4">
+            <div class="md:border-x border-slate-200 space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 divide-x divide-slate-200">
+                    <div class="col-auto md:col-span-2">
+                        <div class="p-4 md:p-12 space-y-8">
+                            <x-sections.breadcrumb>
+                                <x-sections.breadcrumb.item href="{{ route('index') }}"
+                                    value="{{ Str::ucfirst('beranda') }}" />
+                                <x-sections.breadcrumb.icon />
+                                <x-sections.breadcrumb.item href="{{ route('article.index') }}"
+                                    value="{{ Str::ucfirst('artikel') }}" />
+                                <x-sections.breadcrumb.icon />
+                                <x-sections.breadcrumb.item href="{{ route('article.index') }}"
+                                    value="{{ $record->category?->title ?? null }}" />
+                            </x-sections.breadcrumb>
+                            <h1 class="font-bold text-3xl">
+                                {{ $record->title ?? null }}
+                            </h1>
+                            <h6 class="text-slate-500">
+                                {{ $record->published_at ? $record->formatDayDate($record->published_at) : null }}.
+                                {{ Str::ucfirst('waktu baca') }}
+                                {{ $record->content ? $record->readTimeFormatted($record->content) : null }}.
+                            </h6>
+                            @if ($record->file)
+                                <div class="aspect-video overflow-hidden bg-slate-200 rounded-xl">
+                                    <img src="{{ $record->file ? asset('storage/' . $record->file) : asset('/images/default-img.svg') }}"
+                                        alt="image" class="w-full h-full object-contain">
+                                </div>
+                            @endif
+                            @if ($record->description)
+                                <h6 class="text-slate-500">
+                                    {{ $record->description ?? null }}
+                                </h6>
+                            @endif
+                            @if ($record->attachment)
+                                <div class="p-4 bg-slate-200">
+                                    <div class="flex gap-4 overflow-x-auto hide-scrollbar snap-x scroll-smooth">
+                                        @foreach ($record->attachment as $image)
+                                            <div class="flex-none w-auto rounded-xl overflow-hidden snap-center">
+                                                <img src="{{ $image ? asset('storage/' . $image) : asset('/images/default-img.svg') }}"
+                                                    alt="image"
+                                                    class="w-auto h-32 hover:scale-110 transition duration-300 ease-in-out" />
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="content">
+                                {!! $record->content ?? null !!}
+                            </div>
+                            @if ($record->tags)
+                                <div class="space-y-2">
+                                    <p class="text-slate-500">
+                                        {{ Str::ucfirst('topik') }}
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        @foreach ($record->tags as $tag)
+                                            <div class="w-fit rounded-lg bg-slate-200 px-4 py-1">
+                                                {{ $tag->title ?? null }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-auto md:col-span-1">
+                        <div class="md:sticky md:top-16">
+                            <div class="p-4 md:p-12 space-y-8">
+                                <div class="space-y-4">
+                                    <p class="text-slate-500">
+                                        {{ Str::ucfirst('bagikan') }}
+                                    </p>
+                                    <x-sections.share />
+                                </div>
+                                <div class="space-y-4">
+                                    <p class="text-slate-500">
+                                        {{ Str::ucfirst('ditulis oleh') }}
+                                    </p>
+                                    <div class="flex justify-start items-center">
+                                        <a href="" class="h-full inline-flex items-center gap-4">
+                                            <img src="{{ $record->user?->profile?->file ? asset('storage/' . $record->user?->profile?->file) : asset('/images/default-user.svg') }}"
+                                                alt="image" class="aspect-square w-10 h-10 rounded-full">
+                                            <div>
+                                                <h1 class="font-bold">
+                                                    {{ $record->user?->name ?? null }}
+                                                </h1>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <h1 class="text-xl font-bold">
+                                        {{ Str::ucfirst('lainnya') }}
+                                    </h1>
+                                    <div class="w-12 h-1 rounded-full bg-sky-500"></div>
+                                    @foreach ($other as $item)
+                                        <h3 class="line-clamp-1">
+                                            <a href="{{ route('article.show', $item->slug) }}"
+                                                title="{{ $item->title ?? null }}" class="hover:underline">
+                                                {{ $item->title ?? null }}
+                                            </a>
+                                        </h3>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</x-layouts.app>
+{{-- <x-layouts.app title="{{ $record->title ?? null }}">
     <x-wrapper id="article" class="py-4">
         <x-container>
             @if ($record)
@@ -6,10 +121,10 @@
                     <div class="w-full col-span-full md:col-span-8 space-y-4">
                         <x-sections.breadcrumb>
                             <x-sections.breadcrumb.item href="{{ route('index') }}"
-                                value="{{ Str::ucfirst(__('beranda')) }}" />
+                                value="{{ Str::ucfirst('beranda') }}" />
                             <x-sections.breadcrumb.icon />
                             <x-sections.breadcrumb.item href="{{ route('article.index') }}"
-                                value="{{ Str::ucfirst(__('artikel')) }}" />
+                                value="{{ Str::ucfirst('artikel') }}" />
                             <x-sections.breadcrumb.icon />
                             <x-sections.breadcrumb.item href="{{ route('article.index') }}"
                                 value="{{ $record->category?->title ?? null }}" />
@@ -19,7 +134,7 @@
                         </h1>
                         <h6 class="text-slate-500">
                             {{ $record->published_at ? $record->formatDayDate($record->published_at) : null }}.
-                            {{ Str::ucfirst(__('waktu baca')) }}
+                            {{ Str::ucfirst('waktu baca') }}
                             {{ $record->content ? $record->readTimeFormatted($record->content) : null }}.
                         </h6>
                         @if ($record->file)
@@ -52,7 +167,7 @@
                         @if ($record->tags)
                             <div class="space-y-2">
                                 <p class="text-slate-500">
-                                    {{ Str::ucfirst(__('topik')) }}
+                                    {{ Str::ucfirst('topik') }}
                                 </p>
                                 <div class="flex flex-wrap gap-2">
                                     @foreach ($record->tags as $tag)
@@ -68,13 +183,13 @@
                         <div class="sticky top-[30%] self-start space-y-8">
                             <div class="space-y-2">
                                 <p class="text-slate-500">
-                                    {{ Str::ucfirst(__('bagikan')) }}
+                                    {{ Str::ucfirst('bagikan') }}
                                 </p>
                                 <x-sections.share />
                             </div>
                             <div class="space-y-2">
                                 <p class="text-slate-500">
-                                    {{ Str::ucfirst(__('ditulis oleh')) }}
+                                    {{ Str::ucfirst('ditulis oleh') }}
                                 </p>
                                 <div class="flex justify-start items-center">
                                     <a href="" class="h-full inline-flex items-center gap-4">
@@ -90,7 +205,7 @@
                             </div>
                             <div class="space-y-2">
                                 <h1 class="text-2xl font-semibold">
-                                    {{ Str::ucfirst(__('lainnya')) }}
+                                    {{ Str::ucfirst('lainnya') }}
                                 </h1>
                                 <div class="w-12 h-1 rounded-full bg-sky-500 "></div>
                                 @foreach ($other as $item)
@@ -110,4 +225,4 @@
             @endif
         </x-container>
     </x-wrapper>
-</x-layouts.app>
+</x-layouts.app> --}}

@@ -3,29 +3,31 @@
     use App\Models\Post\BlogArticle;
     use App\Models\Post\BlogCategory;
 @endphp
-<header x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 1 })" :class="scrolled ? 'bg-white shadow' : 'bg-transparent'"
-    class="w-full fixed top-0 left-0 z-50 transition-all duration-500">
+<header x-data="{ isHome: {{ request()->routeIs('index') ? 'true' : 'false' }}, scrolled: false, }" x-init="if (isHome) {
+    scrolled = window.scrollY > 14;
+    window.addEventListener('scroll', () => { scrolled = window.scrollY > 30; });
+}"
+    :class="isHome ? (scrolled ? 'bg-white/80 backdrop-blur-sm border-b border-slate-200' :
+        'bg-white') : 'bg-white/80 backdrop-blur-sm border-b border-slate-200'"
+    class="fixed inset-x-0 top-0 z-50 transition-all duration-500 border-b border-slate-200">
     <nav aria-label="Global" class="mx-auto max-w-7xl p-4">
         <div class="flex flex-row w-full gap-4">
             <div class="flex sm:flex-1">
                 <div class="h-full flex items-center justify-start">
                     <a wire:navigate href="{{ route('index') }}" class="h-full inline-flex items-center gap-4">
                         <img src="{{ $siteSetting->logo ? asset('storage/' . $siteSetting->logo) : asset('/images/laravel.svg') }}"
-                            alt="logo" class="h-10 w-auto" />
+                            alt="logo" class="w-auto h-8" />
                         <div class="hidden sm:block">
                             <h1 class="font-bold">
                                 {{ $siteSetting->name ? $siteSetting->name : env('APP_NAME') }}
                             </h1>
-                            <h3 class="text-xs">
-                                {{ $siteSetting->tagline ? $siteSetting->tagline : env('APP_NAME') }}
-                            </h3>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="hidden lg:flex">
                 <div class="h-full w-md flex overflow-x-auto items-center justify-center hide-scrollbar">
-                    <el-popover-group class="flex flex-row gap-4 items-center justify-center whitespace-nowrap">
+                    <el-popover-group class="flex flex-row gap-8 items-center justify-center whitespace-nowrap">
                         @foreach ($navigationMenu as $parent)
                             @php
                                 if ($parent->modelable_type === BlogCategory::class):
@@ -39,7 +41,7 @@
                             @if (count($parent->children) > 0)
                                 <div class="relative">
                                     <button popovertarget="desktop-menu-{{ $parent->id ?? null }}"
-                                        class="group flex items-center gap-x-1 hover:text-sky-700 transition duration-200 ease-in-out rounded-xl">
+                                        class="group flex items-center gap-x-1 hover:text-sky-700 transition duration-200 ease-in-out">
                                         <span class="relative">
                                             {{ $parent->title ?? null }}
                                             <span
@@ -54,7 +56,7 @@
                                         </svg>
                                     </button>
                                     <el-popover id="desktop-menu-{{ $parent->id ?? null }}" anchor="bottom" popover
-                                        class="w-screen max-w-64 overflow-hidden rounded-xl bg-white text-slate-600 shadow divide-y divide-slate-200 transition transition-discrete [--anchor-gap:--spacing(3)] backdrop:bg-transparent open:block data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in">
+                                        class="w-screen max-w-64 overflow-hidden bg-white text-slate-800 border border-slate-200 divide-y divide-slate-200 transition transition-discrete [--anchor-gap:--spacing(3)] backdrop:bg-transparent open:block data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in">
                                         @foreach ($parent->children as $child)
                                             @php
                                                 if ($child->modelable_type === BlogCategory::class):
@@ -65,7 +67,7 @@
                                                     $urlChild = route('page.show', $child->page->slug);
                                                 endif;
                                             @endphp
-                                            <div class="hover:bg-slate-100 px-4 py-2">
+                                            <div class="hover:bg-slate-100 p-4">
                                                 <a wire:navigate href="{{ $urlChild ?? null }}"
                                                     class="hover:text-sky-800">
                                                     {{ $child->title ?? null }}
@@ -76,7 +78,7 @@
                                 </div>
                             @else
                                 <a wire:navigate href="{{ $urlParent ?? null }}"
-                                    class="relative rounded-xl transition duration-200 ease-in-out hover:text-sky-700 group">
+                                    class="relative transition duration-200 ease-in-out hover:text-sky-700 group">
                                     {{ $parent->title ?? null }}
                                     <span
                                         class="absolute left-1/2 -bottom-1 w-10 h-1 bg-sky-600 rounded-full -translate-x-1/2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>
@@ -91,9 +93,9 @@
                     <livewire:search-global />
                     <div class="flex lg:hidden">
                         <button type="button" command="show-modal" commandfor="mobile-menu"
-                            class="inline-flex items-center justify-center rounded-xl bg-white border border-slate-200 p-2">
+                            class="inline-flex items-center justify-center">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                data-slot="icon" aria-hidden="true" class="size-6 text-slate-500">
+                                data-slot="icon" aria-hidden="true" class="size-8">
                                 <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
@@ -104,36 +106,33 @@
         </div>
     </nav>
     <el-dialog>
-        <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden text-slate-600">
+        <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden text-slate-800">
             <div tabindex="0" class="fixed inset-0 focus:outline-none">
                 <el-dialog-panel class="fixed right-0 z-50 w-full">
-                    <div class="h-screen min-h-0 flex flex-col bg-slate-100 shadow">
-                        <div class="min-h-0 flex flex-col flex-1  space-y-4 p-4">
-                            <div class="flex items-center justify-between">
+                    <div class="h-screen min-h-0 flex flex-col bg-white">
+                        <div class="min-h-0 flex flex-col flex-1 space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-200 p-4">
                                 <a wire:navigate href="{{ route('index') }}"
                                     class="h-full inline-flex items-center gap-4">
                                     <img src="{{ $siteSetting->logo ? asset('storage/' . $siteSetting->logo) : asset('/images/laravel.svg') }}"
-                                        alt="logo" class="h-10 w-auto" />
+                                        alt="logo" class="w-auto h-8" />
                                     <div>
                                         <h1 class="font-bold">
                                             {{ $siteSetting->name ? $siteSetting->name : env('APP_NAME') }}
                                         </h1>
-                                        <h3 class="text-xs">
-                                            {{ $siteSetting->tagline ? $siteSetting->tagline : env('APP_NAME') }}
-                                        </h3>
                                     </div>
                                 </a>
                                 <button type="button" command="close" commandfor="mobile-menu"
-                                    class="bg-white rounded-xl border border-slate-200 p-2">
+                                    class="bg-white rounded-lg">
                                     <span class="sr-only">Close menu</span>
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                        class="size-6 text-slate-500">
+                                        class="size-8">
                                         <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </button>
                             </div>
-                            <div class="flex-1 rounded-xl overflow-hidden">
-                                <div class="h-full bg-white shadow overflow-y-auto divide-y divide-slate-100">
+                            <div class="flex-1 rounded-xl overflow-hidden px-4">
+                                <div class="h-full overflow-y-auto divide-y divide-slate-200">
                                     @foreach ($navigationMenu as $parent)
                                         @php
                                             if ($parent->modelable_type === BlogCategory::class):
@@ -148,7 +147,7 @@
                                             <div class="">
                                                 <button type="button" command="--toggle"
                                                     commandfor="mobile-menu-{{ $parent->id ?? null }}"
-                                                    class="px-4 py-2 hover:underline flex w-full items-center justify-between ">
+                                                    class="py-4 hover:underline flex w-full items-center justify-between ">
                                                     {{ $parent->title ?? null }}
                                                     <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon"
                                                         aria-hidden="true"
@@ -160,8 +159,7 @@
                                                 </button>
                                                 <el-disclosure id="mobile-menu-{{ $parent->id ?? null }}" hidden
                                                     class="space-y-2">
-                                                    <div
-                                                        class="bg-slate-50 divide-y divide-slate-200 rounded-xl mx-4 mb-4">
+                                                    <div class="mb-4">
                                                         @foreach ($parent->children as $child)
                                                             @php
                                                                 if ($child->modelable_type === BlogCategory::class):
@@ -178,7 +176,7 @@
                                                                     $urlChild = route('page.show', $child->page->slug);
                                                                 endif;
                                                             @endphp
-                                                            <div class="flex items-center pl-4">
+                                                            <div class="flex items-center">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                     viewBox="0 0 24 24" stroke-width="1.5"
                                                                     stroke="currentColor" class="size-4">
@@ -187,7 +185,7 @@
                                                                         d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                                                 </svg>
                                                                 <a wire:navigate href="{{ $urlChild ?? null }}"
-                                                                    class="block px-4 py-2 hover:underline">
+                                                                    class="block p-4 hover:underline">
                                                                     {{ $child->title ?? null }}
                                                                 </a>
                                                             </div>
@@ -197,7 +195,7 @@
                                             </div>
                                         @else
                                             <a wire:navigate href="{{ $urlParent ?? null }}"
-                                                class="block px-4 py-2  hover:underline">
+                                                class="block py-4  hover:underline">
                                                 {{ $parent->title ?? null }}
                                             </a>
                                         @endif

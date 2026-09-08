@@ -1,12 +1,11 @@
-<x-layouts.app title="{{ Str::title(__('beranda')) }}">
-    <x-wrapper class="space-y-4">
-        @include('pages.home.carousel')
-        @include('pages.home.technology')
-        @include('pages.home.article')
-        @include('pages.home.partner')
-        @include('pages.home.service')
-        @include('pages.home.people')
-        @include('pages.home.file')
-        @include('pages.home.galery')
-    </x-wrapper>
+<x-layouts.app title="{{ Str::title('beranda') }}">
+    @include('pages.home.partial.carousel')
+    @include('pages.home.partial.technology')
+    {{-- @include('pages.home.partial.technology1') --}}
+    @include('pages.home.partial.article')
+    @include('pages.home.partial.partner')
+    @include('pages.home.partial.service')
+    @include('pages.home.partial.people')
+    @include('pages.home.partial.file')
+    @include('pages.home.partial.galery')
 </x-layouts.app>
